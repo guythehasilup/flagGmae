@@ -12,3 +12,7 @@ def soldier_move_down():
 
 def soldier_move_up():
     pass
+
+
+def get_soldier_pos():
+    pass

@@ -2,6 +2,7 @@ import consts
 import random
 
 game_field_metrics = []
+mines = []
 
 
 def initiate_empty_game_field():
@@ -46,12 +47,15 @@ def check_placement_of_mine(mine_row, mine_start_col):
 
 
 def insert_mine_to_matrix(mine_row, mine_start_col):
+    mine_placement = []
     for cols in range(mine_start_col, mine_start_col + consts.MINE_WIDTH):
         game_field_metrics[mine_row][cols] = consts.MINE_PLACEMENT
+        mine_placement.append((mine_row, cols))
+    mines.append(mine_placement)
 
 
 def initiate_mines_pos():
-    for mines in range(20):
+    for i in range(20):
         mine_row = random.randint(0, consts.MATRIX_HEIGHT - 1)
         mine_start_col = random.randint(0, consts.MATRIX_WIDTH)
         while not check_placement_of_mine(mine_row, mine_start_col):
