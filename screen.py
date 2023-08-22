@@ -10,7 +10,7 @@ screen_1 = pygame.display.set_mode((consts.WINDOW_WIDTH, consts.WINDOW_HEIGHT))
 def draw_game():
     screen_1.fill(consts.BACKGROUND_COLOR)
     soldier_pos = soldier.get_soldier_pos(game_field.game_field_metrics)
-    draw_soldier(soldier_pos[0]*consts.SQUARE_EDGE, soldier_pos[1]*consts.SQUARE_EDGE)
+    draw_soldier(soldier_pos[0] * consts.SQUARE_EDGE, soldier_pos[1] * consts.SQUARE_EDGE)
     draw_flag()
     draw_bushes()
     pygame.display.flip()
@@ -46,7 +46,7 @@ def draw_night_vision_game():
             x += consts.SQUARE_EDGE
         y += consts.SQUARE_EDGE
     soldier_pos = soldier.get_soldier_pos(game_field.game_field_metrics)
-    draw_night_soldier(soldier_pos[0]*consts.SQUARE_EDGE, soldier_pos[1]*consts.SQUARE_EDGE)
+    draw_night_soldier(soldier_pos[0] * consts.SQUARE_EDGE, soldier_pos[1] * consts.SQUARE_EDGE)
     for mine in game_field.mines:
         print(1)
         draw_mine(mine)
@@ -76,3 +76,15 @@ def draw_mine(mine):
     sized_mine = pygame.transform.scale(consts.MINE_IMAGE, (
         consts.SQUARE_EDGE * consts.MINE_WIDTH, consts.SQUARE_EDGE * consts.MINE_HEIGHT))
     screen_1.blit(sized_mine, (mine[0][1] * consts.SQUARE_EDGE, mine[0][0] * consts.SQUARE_EDGE))
+
+
+def draw_lose_screen():
+    font = pygame.font.SysFont(consts.FONT_NAME, consts.MESSAGE_FONT)
+    text_img = font.render(consts.LOSE_MESSAGE, True, consts.MESSAGE_COLOR)
+    screen_1.blit(text_img, consts.MESSAGE_PLACE)
+
+
+def draw_win_screen():
+    font = pygame.font.SysFont(consts.FONT_NAME, consts.MESSAGE_FONT)
+    text_img = font.render(consts.WIN_MESSAGE, True, consts.MESSAGE_COLOR)
+    screen_1.blit(text_img, consts.MESSAGE_PLACE)

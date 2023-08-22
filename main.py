@@ -28,11 +28,20 @@ def main():
                 state["state"] = consts.ENG_GAME_STATE
 
             # do something or crash
-            # print(2)
+            print(2)
             # pygame.display.update()
             # clock.tick(60)
         else:
-            pass
+            if state["is_lost"]:
+                screen.draw_lose_screen()
+                pygame.display.update()
+                pygame.time.delay(3000)
+                state["is_window_open"] = False
+            if state["is_won"]:
+                screen.draw_win_screen()
+                pygame.display.update()
+                pygame.time.delay(3000)
+                state["is_window_open"] = False
 
 
 def handle_events():
@@ -41,13 +50,13 @@ def handle_events():
             state["is_window_open"] = False
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                soldier.soldier_move_left(game_field.game_field_metrics)
+                soldier.soldier_move_left(game_field.game_field_metrics, state)
             if event.key == pygame.K_RIGHT:
-                soldier.soldier_move_right(game_field.game_field_metrics)
+                soldier.soldier_move_right(game_field.game_field_metrics, state)
             if event.key == pygame.K_UP:
-                soldier.soldier_move_up(game_field.game_field_metrics)
+                soldier.soldier_move_up(game_field.game_field_metrics, state)
             if event.key == pygame.K_DOWN:
-                soldier.soldier_move_down(game_field.game_field_metrics)
+                soldier.soldier_move_down(game_field.game_field_metrics, state)
             if event.key == pygame.K_RETURN:
                 screen.draw_night_vision_game()
                 pygame.display.update()
