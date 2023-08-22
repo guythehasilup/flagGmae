@@ -69,3 +69,4 @@ def get_flag_pos():
         for col in range(consts.MATRIX_WIDTH):
             if game_field_metrics[row][col] == consts.FLAG_PLACEMENT:
                 return row, col
+

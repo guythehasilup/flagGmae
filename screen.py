@@ -1,6 +1,7 @@
 import pygame
 import game_field
 import consts
+import soldier
 import random
 
 screen_1 = pygame.display.set_mode((consts.WINDOW_WIDTH, consts.WINDOW_HEIGHT))
@@ -8,7 +9,8 @@ screen_1 = pygame.display.set_mode((consts.WINDOW_WIDTH, consts.WINDOW_HEIGHT))
 
 def draw_game():
     screen_1.fill(consts.BACKGROUND_COLOR)
-    draw_soldier(0, 0)
+    soldier_pos = soldier.get_soldier_pos(game_field.game_field_metrics)
+    draw_soldier(soldier_pos[0]*consts.SQUARE_EDGE, soldier_pos[1]*consts.SQUARE_EDGE)
     draw_flag()
     draw_bushes()
     pygame.display.flip()
@@ -43,7 +45,8 @@ def draw_night_vision_game():
             draw_night_rect(x, y)
             x += consts.SQUARE_EDGE
         y += consts.SQUARE_EDGE
-    draw_night_soldier(0, 0)
+    soldier_pos = soldier.get_soldier_pos(game_field.game_field_metrics)
+    draw_night_soldier(soldier_pos[0]*consts.SQUARE_EDGE, soldier_pos[1]*consts.SQUARE_EDGE)
     for mine in game_field.mines:
         print(1)
         draw_mine(mine)
