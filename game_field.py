@@ -62,3 +62,10 @@ def initiate_mines_pos():
             mine_row = random.randint(0, consts.MATRIX_HEIGHT - 1)
             mine_start_col = random.randint(0, consts.MATRIX_WIDTH)
         insert_mine_to_matrix(mine_row, mine_start_col)
+
+
+def get_flag_pos():
+    for row in range(consts.MATRIX_HEIGHT):
+        for col in range(consts.MATRIX_WIDTH):
+            if game_field_metrics[row][col] == consts.FLAG_PLACEMENT:
+                return row, col

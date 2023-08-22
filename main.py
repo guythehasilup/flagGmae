@@ -3,7 +3,9 @@ import pygame
 import screen
 
 state = {
-    "is_window_open": True
+    "is_window_open": True,
+    "is_lost": False,
+    "is_won": False
 }
 
 
@@ -12,6 +14,7 @@ def main():
     clock = pygame.time.Clock()
     game_field.initiate_empty_game_field()
     game_field.initiate_game_field()
+    screen.set_bush_placement()
     # game_field.print_board()
     print(game_field.mines)
     while state["is_window_open"]:

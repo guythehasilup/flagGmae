@@ -1,6 +1,7 @@
 import pygame
 import game_field
 import consts
+import random
 
 screen_1 = pygame.display.set_mode((consts.WINDOW_WIDTH, consts.WINDOW_HEIGHT))
 
@@ -9,7 +10,22 @@ def draw_game():
     screen_1.fill(consts.BACKGROUND_COLOR)
     draw_soldier(0, 0)
     draw_flag()
+    draw_bushes()
     pygame.display.flip()
+
+
+def set_bush_placement():
+    for bush in range(20):
+        x_place = random.randint(0, consts.MATRIX_WIDTH)
+        y_place = random.randint(0, consts.MATRIX_HEIGHT)
+        consts.BUSH_PLACEMENT.append((x_place, y_place))
+
+
+def draw_bushes():
+    for bush_pos in consts.BUSH_PLACEMENT:
+        sized_bush = pygame.transform.scale(consts.BUSH_IMAGE, (
+            consts.SQUARE_EDGE * consts.BUSH_WIDTH, consts.SQUARE_EDGE * consts.BUSH_HEIGHT))
+        screen_1.blit(sized_bush, (bush_pos[0] * consts.SQUARE_EDGE, bush_pos[1] * consts.SQUARE_EDGE))
 
 
 def draw_night_rect(x, y):
@@ -47,10 +63,13 @@ def draw_night_soldier(x, y):
 
 
 def draw_flag():
-    pass
+    row, col = game_field.get_flag_pos()
+    sized_flag = pygame.transform.scale(consts.FLAG_IMAGE, (
+        consts.SQUARE_EDGE * consts.FLAG_WIDTH, consts.SQUARE_EDGE * consts.FLAG_HEIGHT))
+    screen_1.blit(sized_flag, (col * consts.SQUARE_EDGE, row * consts.SQUARE_EDGE))
 
 
 def draw_mine(mine):
     sized_mine = pygame.transform.scale(consts.MINE_IMAGE, (
         consts.SQUARE_EDGE * consts.MINE_WIDTH, consts.SQUARE_EDGE * consts.MINE_HEIGHT))
-    screen_1.blit(sized_mine, (mine[0][1]*consts.SQUARE_EDGE, mine[0][0]*consts.SQUARE_EDGE))
+    screen_1.blit(sized_mine, (mine[0][1] * consts.SQUARE_EDGE, mine[0][0] * consts.SQUARE_EDGE))
