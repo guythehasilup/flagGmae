@@ -37,7 +37,7 @@ def initiate_flag_pos():
 
 
 def check_placement_of_mine(mine_row, mine_start_col):
-    if mine_start_col + consts.MINE_WIDTH - 1 >= consts.MATRIX_WIDTH:
+    if mine_start_col + consts.MINE_WIDTH > consts.MATRIX_WIDTH:
         return False
     for cols in range(mine_start_col, mine_start_col + consts.MINE_WIDTH):
         if game_field_metrics[mine_row][cols] != consts.EMPTY_PLACEMENT:
