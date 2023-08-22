@@ -37,7 +37,7 @@ def initiate_flag_pos():
 
 
 def check_placement_of_mine(mine_row, mine_start_col):
-    if mine_start_col + consts.MINE_WIDTH - 1 > consts.MATRIX_WIDTH:
+    if mine_start_col + consts.MINE_WIDTH - 1 >= consts.MATRIX_WIDTH:
         return False
     for cols in range(mine_start_col, mine_start_col + consts.MINE_WIDTH):
         if game_field_metrics[mine_row][cols] != consts.EMPTY_PLACEMENT:
@@ -52,9 +52,9 @@ def insert_mine_to_matrix(mine_row, mine_start_col):
 
 def initiate_mines_pos():
     for mines in range(20):
-        mine_row = random.randint(0, consts.MATRIX_HEIGHT)
+        mine_row = random.randint(0, consts.MATRIX_HEIGHT - 1)
         mine_start_col = random.randint(0, consts.MATRIX_WIDTH)
         while not check_placement_of_mine(mine_row, mine_start_col):
-            mine_row = random.randint(0, consts.MATRIX_HEIGHT)
+            mine_row = random.randint(0, consts.MATRIX_HEIGHT - 1)
             mine_start_col = random.randint(0, consts.MATRIX_WIDTH)
         insert_mine_to_matrix(mine_row, mine_start_col)
