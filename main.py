@@ -1,5 +1,7 @@
+import os
 import time
 
+import database
 import game_field
 import pygame
 import screen
@@ -16,6 +18,9 @@ state = {
 
 
 def main():
+    file_exists = os.path.exists(consts.DATABASE_FILE)
+    if not file_exists:
+        database.initialize_db()
     pygame.init()
     game_field.initiate_empty_game_field()
     game_field.initiate_game_field()
@@ -68,22 +73,22 @@ def handle_events():
                 pygame.time.delay(1000)
             elif event.key == pygame.K_1:
                 time_down = time.time()
-            elif event.key == pygame.K_2:
-                time_down = time.time()
-            elif event.key == pygame.K_3:
-                time_down = time.time()
-            elif event.key == pygame.K_4:
-                time_down = time.time()
-            elif event.key == pygame.K_5:
-                time_down = time.time()
-            elif event.key == pygame.K_6:
-                time_down = time.time()
-            elif event.key == pygame.K_7:
-                time_down = time.time()
-            elif event.key == pygame.K_8:
-                time_down = time.time()
-            elif event.key == pygame.K_9:
-                time_down = time.time()
+            # elif event.key == pygame.K_2:
+            #     time_down = time.time()
+            # elif event.key == pygame.K_3:
+            #     time_down = time.time()
+            # elif event.key == pygame.K_4:
+            #     time_down = time.time()
+            # elif event.key == pygame.K_5:
+            #     time_down = time.time()
+            # elif event.key == pygame.K_6:
+            #     time_down = time.time()
+            # elif event.key == pygame.K_7:
+            #     time_down = time.time()
+            # elif event.key == pygame.K_8:
+            #     time_down = time.time()
+            # elif event.key == pygame.K_9:
+            #     time_down = time.time()
 
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_1:
@@ -91,60 +96,59 @@ def handle_events():
                 if time_elapsed <= 1:
                     print("load")
                 else:
-                    print("save")
-
-            elif event.key == pygame.K_2:
-                time_elapsed = time.time() - time_down
-                if time_elapsed <= 1:
-                    print("load")
-                else:
-                    print("save")
-            elif event.key == pygame.K_3:
-                time_elapsed = time.time() - time_down
-                if time_elapsed <= 1:
-                    print("load")
-                else:
-                    print("save")
-
-            elif event.key == pygame.K_4:
-                time_elapsed = time.time() - time_down
-                if time_elapsed <= 1:
-                    print("load")
-                else:
-                    print("save")
-            elif event.key == pygame.K_5:
-                time_elapsed = time.time() - time_down
-                if time_elapsed <= 1:
-                    print("load")
-                else:
-                    print("save")
-
-            elif event.key == pygame.K_6:
-                time_elapsed = time.time() - time_down
-                if time_elapsed <= 1:
-                    print("load")
-                else:
-                    print("save")
-
-            elif event.key == pygame.K_7:
-                time_elapsed = time.time() - time_down
-                if time_elapsed <= 1:
-                    print("load")
-                else:
-                    print("save")
-
-            elif event.key == pygame.K_8:
-                time_elapsed = time.time() - time_down
-                if time_elapsed <= 1:
-                    print("load")
-                else:
-                    print("save")
-            elif event.key == pygame.K_9:
-                time_elapsed = time.time() - time_down
-                if time_elapsed <= 1:
-                    print("load")
-                else:
-                    print("save")
+                    database.save_game(1)
+            # elif event.key == pygame.K_2:
+            #     time_elapsed = time.time() - time_down
+            #     if time_elapsed <= 1:
+            #         print("load")
+            #     else:
+            #         print("save")
+            # elif event.key == pygame.K_3:
+            #     time_elapsed = time.time() - time_down
+            #     if time_elapsed <= 1:
+            #         print("load")
+            #     else:
+            #         print("save")
+            #
+            # elif event.key == pygame.K_4:
+            #     time_elapsed = time.time() - time_down
+            #     if time_elapsed <= 1:
+            #         print("load")
+            #     else:
+            #         print("save")
+            # elif event.key == pygame.K_5:
+            #     time_elapsed = time.time() - time_down
+            #     if time_elapsed <= 1:
+            #         print("load")
+            #     else:
+            #         print("save")
+            #
+            # elif event.key == pygame.K_6:
+            #     time_elapsed = time.time() - time_down
+            #     if time_elapsed <= 1:
+            #         print("load")
+            #     else:
+            #         print("save")
+            #
+            # elif event.key == pygame.K_7:
+            #     time_elapsed = time.time() - time_down
+            #     if time_elapsed <= 1:
+            #         print("load")
+            #     else:
+            #         print("save")
+            #
+            # elif event.key == pygame.K_8:
+            #     time_elapsed = time.time() - time_down
+            #     if time_elapsed <= 1:
+            #         print("load")
+            #     else:
+            #         print("save")
+            # elif event.key == pygame.K_9:
+            #     time_elapsed = time.time() - time_down
+            #     if time_elapsed <= 1:
+            #         print("load")
+            #     else:
+            #         print("save")
 
 
 if __name__ == "__main__":
