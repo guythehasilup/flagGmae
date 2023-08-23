@@ -1,5 +1,6 @@
 import os
 import time
+import ast
 
 import database
 import game_field
@@ -73,82 +74,89 @@ def handle_events():
                 pygame.time.delay(1000)
             elif event.key == pygame.K_1:
                 time_down = time.time()
-            # elif event.key == pygame.K_2:
-            #     time_down = time.time()
-            # elif event.key == pygame.K_3:
-            #     time_down = time.time()
-            # elif event.key == pygame.K_4:
-            #     time_down = time.time()
-            # elif event.key == pygame.K_5:
-            #     time_down = time.time()
-            # elif event.key == pygame.K_6:
-            #     time_down = time.time()
-            # elif event.key == pygame.K_7:
-            #     time_down = time.time()
-            # elif event.key == pygame.K_8:
-            #     time_down = time.time()
-            # elif event.key == pygame.K_9:
-            #     time_down = time.time()
+            elif event.key == pygame.K_2:
+                time_down = time.time()
+            elif event.key == pygame.K_3:
+                time_down = time.time()
+            elif event.key == pygame.K_4:
+                time_down = time.time()
+            elif event.key == pygame.K_5:
+                time_down = time.time()
+            elif event.key == pygame.K_6:
+                time_down = time.time()
+            elif event.key == pygame.K_7:
+                time_down = time.time()
+            elif event.key == pygame.K_8:
+                time_down = time.time()
+            elif event.key == pygame.K_9:
+                time_down = time.time()
 
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_1:
                 time_elapsed = time.time() - time_down
                 if time_elapsed <= 1:
-                    print("load")
+                    load_game(1)
                 else:
                     database.save_game(1)
-            # elif event.key == pygame.K_2:
-            #     time_elapsed = time.time() - time_down
-            #     if time_elapsed <= 1:
-            #         print("load")
-            #     else:
-            #         print("save")
-            # elif event.key == pygame.K_3:
-            #     time_elapsed = time.time() - time_down
-            #     if time_elapsed <= 1:
-            #         print("load")
-            #     else:
-            #         print("save")
-            #
-            # elif event.key == pygame.K_4:
-            #     time_elapsed = time.time() - time_down
-            #     if time_elapsed <= 1:
-            #         print("load")
-            #     else:
-            #         print("save")
-            # elif event.key == pygame.K_5:
-            #     time_elapsed = time.time() - time_down
-            #     if time_elapsed <= 1:
-            #         print("load")
-            #     else:
-            #         print("save")
-            #
-            # elif event.key == pygame.K_6:
-            #     time_elapsed = time.time() - time_down
-            #     if time_elapsed <= 1:
-            #         print("load")
-            #     else:
-            #         print("save")
-            #
-            # elif event.key == pygame.K_7:
-            #     time_elapsed = time.time() - time_down
-            #     if time_elapsed <= 1:
-            #         print("load")
-            #     else:
-            #         print("save")
-            #
-            # elif event.key == pygame.K_8:
-            #     time_elapsed = time.time() - time_down
-            #     if time_elapsed <= 1:
-            #         print("load")
-            #     else:
-            #         print("save")
-            # elif event.key == pygame.K_9:
-            #     time_elapsed = time.time() - time_down
-            #     if time_elapsed <= 1:
-            #         print("load")
-            #     else:
-            #         print("save")
+            elif event.key == pygame.K_2:
+                time_elapsed = time.time() - time_down
+                if time_elapsed <= 1:
+                    load_game(2)
+                else:
+                    database.save_game(2)
+            elif event.key == pygame.K_3:
+                time_elapsed = time.time() - time_down
+                if time_elapsed <= 1:
+                    load_game(3)
+                else:
+                    database.save_game(3)
+
+            elif event.key == pygame.K_4:
+                time_elapsed = time.time() - time_down
+                if time_elapsed <= 1:
+                    load_game(4)
+                else:
+                    database.save_game(4)
+            elif event.key == pygame.K_5:
+                time_elapsed = time.time() - time_down
+                if time_elapsed <= 1:
+                    load_game(5)
+                else:
+                    database.save_game(5)
+
+            elif event.key == pygame.K_6:
+                time_elapsed = time.time() - time_down
+                if time_elapsed <= 1:
+                    load_game(6)
+                else:
+                    database.save_game(6)
+            elif event.key == pygame.K_7:
+                time_elapsed = time.time() - time_down
+                if time_elapsed <= 1:
+                    load_game(7)
+                else:
+                    database.save_game(7)
+
+            elif event.key == pygame.K_8:
+                time_elapsed = time.time() - time_down
+                if time_elapsed <= 1:
+                    load_game(8)
+                else:
+                    database.save_game(8)
+            elif event.key == pygame.K_9:
+                time_elapsed = time.time() - time_down
+                if time_elapsed <= 1:
+                    load_game(9)
+                else:
+                    database.save_game(9)
+
+
+def load_game(key):
+    game_field.clear_board()
+    game_field.set_soldier_pos(ast.literal_eval(database.read_db(key, consts.VAR_SOLDIER)))
+    game_field.mines = []
+    game_field.set_mines_pos(ast.literal_eval(database.read_db(key, consts.VAR_MINE)))
+    consts.BUSH_PLACEMENT = ast.literal_eval(database.read_db(key, consts.VAR_BUSH))
 
 
 if __name__ == "__main__":
