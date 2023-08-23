@@ -13,8 +13,12 @@ def soldier_move_left(game_field_metrics, state):
         return
     # move soldier left
     # remove the rightest side of soldier
-    # for row in range(consts.SOLDIER_HEIGHT):
-    #     game_field_metrics[][] = consts.EMPTY_PLACEMENT
+    for row in range(consts.SOLDIER_HEIGHT):
+        game_field_metrics[soldier_placement[1] + row][soldier_placement[0] + 1] = consts.EMPTY_PLACEMENT
+    # add soldier from the left
+    for row in range(consts.SOLDIER_HEIGHT):
+        game_field_metrics[soldier_placement[1] + row][soldier_placement[0] - 1] = consts.SOLDIER_PLACEMENT
+
 
 def soldier_move_right(game_field_metrics, state):
     feet_location = soldier_feet(game_field_metrics)
