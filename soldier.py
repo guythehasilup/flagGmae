@@ -10,6 +10,8 @@ def soldier_move_left(game_field_metrics, state):
         return
     elif game_field_metrics[feet_location[0][0]][feet_location[0][1] - 1] == consts.MINE_PLACEMENT:
         state["is_lost"] = True
+        state["soldier_feet_pos"] = feet_location
+        consts.SOLDIER_IMAGE = consts.INJURED_SOLDIER_IMAGE
         return
     # move soldier left
     # remove the rightest side of soldier
@@ -22,14 +24,15 @@ def soldier_move_left(game_field_metrics, state):
 
 def soldier_move_right(game_field_metrics, state):
     feet_location = soldier_feet(game_field_metrics)
-
+    if feet_location[1][1] + 1 == consts.MATRIX_WIDTH:
+        return
     for row in range(len(game_field_metrics)):
         for col in range(len(game_field_metrics[row])):
-            if col >= consts.WINDOW_WIDTH:
-                return
-            elif game_field_metrics[row][col] == consts.SOLDIER_PLACEMENT:
+            if game_field_metrics[row][col] == consts.SOLDIER_PLACEMENT:
                 if (game_field_metrics[feet_location[1][0]][feet_location[1][1] + 1]) == consts.MINE_PLACEMENT:
                     state["is_lost"] = True
+                    state["soldier_feet_pos"] = feet_location
+                    consts.SOLDIER_IMAGE = consts.INJURED_SOLDIER_IMAGE
                     return
                 else:
                     for i in range(consts.SOLDIER_HEIGHT):
@@ -47,6 +50,8 @@ def soldier_move_down(game_field_metrics, state):
     elif (game_field_metrics[feet_location[0][0] + 1][feet_location[0][1]] == consts.MINE_PLACEMENT or
           game_field_metrics[feet_location[1][0] + 1][feet_location[1][1]] == consts.MINE_PLACEMENT):
         state["is_lost"] = True
+        state["soldier_feet_pos"] = feet_location
+        consts.SOLDIER_IMAGE = consts.INJURED_SOLDIER_IMAGE
         return
     # move soldier down
     game_field_metrics[soldier_placement[1]][soldier_placement[0]] = consts.EMPTY_PLACEMENT
@@ -65,6 +70,8 @@ def soldier_move_up(game_field_metrics, state):
     elif (game_field_metrics[feet_location[0][0] - 1][feet_location[0][1]] == consts.MINE_PLACEMENT or
           game_field_metrics[feet_location[1][0] - 1][feet_location[1][1]] == consts.MINE_PLACEMENT):
         state["is_lost"] = True
+        state["soldier_feet_pos"] = feet_location
+        consts.SOLDIER_IMAGE = consts.INJURED_SOLDIER_IMAGE
         return
     # move soldier up
     # remove lower body

@@ -70,3 +70,6 @@ def get_flag_pos():
             if game_field_metrics[row][col] == consts.FLAG_PLACEMENT:
                 return row, col
 
+
+def restore_mines():
+    pass

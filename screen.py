@@ -88,3 +88,9 @@ def draw_win_screen():
     font = pygame.font.SysFont(consts.FONT_NAME, consts.MESSAGE_FONT)
     text_img = font.render(consts.WIN_MESSAGE, True, consts.MESSAGE_COLOR)
     screen_1.blit(text_img, consts.MESSAGE_PLACE)
+
+
+def draw_explosion(x, y):
+    sized_exp = pygame.transform.scale(consts.EXPLOSION_IMAGE, (
+        consts.SQUARE_EDGE * consts.EXPLOSION_WIDTH, consts.SQUARE_EDGE * consts.EXPLOSION_HEIGHT))
+    screen_1.blit(sized_exp, (x, y))
