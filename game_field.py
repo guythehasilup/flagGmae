@@ -3,6 +3,7 @@ import random
 
 game_field_metrics = []
 mines = []
+flag = []
 
 
 def initiate_empty_game_field():
@@ -32,9 +33,12 @@ def initiate_soldier_pos():
 
 
 def initiate_flag_pos():
+    flag_placement = []
     for row in range(consts.MATRIX_HEIGHT - consts.FLAG_HEIGHT, consts.MATRIX_HEIGHT):
         for col in range(consts.MATRIX_WIDTH - consts.FLAG_WIDTH, consts.MATRIX_WIDTH):
             game_field_metrics[row][col] = consts.FLAG_PLACEMENT
+            flag_placement.append([row, col])
+        flag.append(flag_placement)
 
 
 def check_placement_of_mine(mine_row, mine_start_col):

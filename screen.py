@@ -48,7 +48,6 @@ def draw_night_vision_game():
     soldier_pos = soldier.get_soldier_pos(game_field.game_field_metrics)
     draw_night_soldier(soldier_pos[0] * consts.SQUARE_EDGE, soldier_pos[1] * consts.SQUARE_EDGE)
     for mine in game_field.mines:
-        print(1)
         draw_mine(mine)
     pygame.display.flip()
 
