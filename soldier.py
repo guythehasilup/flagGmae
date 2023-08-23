@@ -8,15 +8,17 @@ def soldier_move_left(game_field_metrics, state):
 
     for row in range(len(game_field_metrics)):
         for col in range(len(game_field_metrics[row])):
-            if game_field_metrics[row][col] == consts.SOLDIER_PLACEMENT and row - 3 < consts.MATRIX_HEIGHT:
-                if (game_field_metrics[feet_location[1][0] + 1][feet_location[1][1]]) == consts.MINE_PLACEMENT:
+            if feet_location[0][1] == 0:
+                return
+            elif game_field_metrics[row][col] == consts.SOLDIER_PLACEMENT:
+                if (game_field_metrics[feet_location[0][0]][feet_location[0][1] - 1]) == consts.MINE_PLACEMENT:
                     state["is_lost"] = True
                     return
                 else:
                     for i in range(consts.SOLDIER_HEIGHT):
-                        game_field_metrics[row][col + i] = consts.EMPTY_PLACEMENT
-                        game_field_metrics[row - 1][col + i] = consts.SOLDIER_PLACEMENT
-                        game_field_metrics[row - 2][col + i] = consts.SOLDIER_PLACEMENT
+                        game_field_metrics[row + i][col] = consts.EMPTY_PLACEMENT
+                        game_field_metrics[row + i][col - 1] = consts.SOLDIER_PLACEMENT
+                        game_field_metrics[row + i][col - 1] = consts.SOLDIER_PLACEMENT
                     return
 
 
@@ -25,15 +27,17 @@ def soldier_move_right(game_field_metrics, state):
 
     for row in range(len(game_field_metrics)):
         for col in range(len(game_field_metrics[row])):
-            if game_field_metrics[row][col] == consts.SOLDIER_PLACEMENT and row + 1 < consts.MATRIX_HEIGHT:
-                if (game_field_metrics[feet_location[1][0] + 1][feet_location[1][1]]) == consts.MINE_PLACEMENT:
+            if col >= consts.WINDOW_WIDTH:
+                return
+            elif game_field_metrics[row][col] == consts.SOLDIER_PLACEMENT:
+                if (game_field_metrics[feet_location[1][0]][feet_location[1][1] + 1]) == consts.MINE_PLACEMENT:
                     state["is_lost"] = True
                     return
                 else:
                     for i in range(consts.SOLDIER_HEIGHT):
-                        game_field_metrics[row][col + i] = consts.EMPTY_PLACEMENT
-                        game_field_metrics[row + 1][col + i] = consts.SOLDIER_PLACEMENT
-                        game_field_metrics[row + 2][col + i] = consts.SOLDIER_PLACEMENT
+                        game_field_metrics[row + i][col] = consts.EMPTY_PLACEMENT
+                        game_field_metrics[row + i][col + 1] = consts.SOLDIER_PLACEMENT
+                        game_field_metrics[row + i][col + 2] = consts.SOLDIER_PLACEMENT
                     return
 
 
@@ -42,37 +46,35 @@ def soldier_move_down(game_field_metrics, state):
     soldier_placement = get_soldier_pos(game_field_metrics)
     if feet_location[0][0] + 1 == consts.MATRIX_HEIGHT:
         return
-    if game_field_metrics[feet_location[0][0] + 1][feet_location[0][1]] == consts.MINE_PLACEMENT:
+    elif (game_field_metrics[feet_location[0][0] + 1][feet_location[0][1]] == consts.MINE_PLACEMENT or
+          game_field_metrics[feet_location[1][0] + 1][feet_location[1][1]] == consts.MINE_PLACEMENT):
         state["is_lost"] = True
         return
-    # for row in range(len(game_field_metrics)):
-    #     for col in range(len(game_field_metrics[row])):
-    #         if game_field_metrics[row][col] == consts.SOLDIER_PLACEMENT:
-    #             if (game_field_metrics[feet_location[1][0]][feet_location[1][0] + 1]) == consts.MINE_PLACEMENT:
-    #                 state["is_lost"] = True
-    #                 return
-    #             else:
-    #                 for i in range(consts.SOLDIER_HEIGHT):
-    #                     game_field_metrics[row + i][col] = consts.EMPTY_PLACEMENT
-    #                     game_field_metrics[row + i][col + 1] = consts.SOLDIER_PLACEMENT
-    #                     game_field_metrics[row + i][col + 2] = consts.SOLDIER_PLACEMENT
-    #                 return
+    # move soldier down
+    game_field_metrics[soldier_placement[1]][soldier_placement[0]] = consts.EMPTY_PLACEMENT
+    game_field_metrics[soldier_placement[1]][soldier_placement[0] + 1] = consts.EMPTY_PLACEMENT
+    game_field_metrics[soldier_placement[1] + consts.SOLDIER_HEIGHT][
+        soldier_placement[0]] = consts.SOLDIER_PLACEMENT
+    game_field_metrics[soldier_placement[1] + consts.SOLDIER_HEIGHT][
+        soldier_placement[0] + 1] = consts.SOLDIER_PLACEMENT
 
 
 def soldier_move_up(game_field_metrics, state):
     feet_location = soldier_feet(game_field_metrics)
-    for row in range(len(game_field_metrics)):
-        for col in range(len(game_field_metrics[row])):
-            if game_field_metrics[row][col] == consts.SOLDIER_PLACEMENT and col - 2 >= 0:
-                if (game_field_metrics[feet_location[1][0]][feet_location[1][1] - 1]) == consts.MINE_PLACEMENT:
-                    state["is_lost"] = True
-                    return
-                else:
-                    for i in range(consts.SOLDIER_HEIGHT):
-                        game_field_metrics[row + i][col + 1] = consts.EMPTY_PLACEMENT
-                        game_field_metrics[row + i][col - 1] = consts.SOLDIER_PLACEMENT
-                        game_field_metrics[row + i][col - 2] = consts.SOLDIER_PLACEMENT
-                    return
+    soldier_placement = get_soldier_pos(game_field_metrics)
+    if soldier_placement[1] - 1 < 0:
+        return
+    elif (game_field_metrics[feet_location[0][0] - 1][feet_location[0][1]] == consts.MINE_PLACEMENT or
+          game_field_metrics[feet_location[1][0] - 1][feet_location[1][1]] == consts.MINE_PLACEMENT):
+        state["is_lost"] = True
+        return
+    # move soldier up
+    game_field_metrics[soldier_placement[1]][soldier_placement[0]] = consts.EMPTY_PLACEMENT
+    game_field_metrics[soldier_placement[1]][soldier_placement[0] + 1] = consts.EMPTY_PLACEMENT
+    game_field_metrics[soldier_placement[1] + consts.SOLDIER_HEIGHT][
+        soldier_placement[0]] = consts.SOLDIER_PLACEMENT
+    game_field_metrics[soldier_placement[1] + consts.SOLDIER_HEIGHT][
+        soldier_placement[0] + 1] = consts.SOLDIER_PLACEMENT
 
 
 def soldier_feet(game_field_metrics):
@@ -104,4 +106,4 @@ def get_soldier_pos(game_field_metrics):
     for row in range(len(game_field_metrics)):
         for col in range(len(game_field_metrics[row])):
             if game_field_metrics[row][col] == consts.SOLDIER_PLACEMENT:
-                return row, col
+                return col, row
