@@ -54,7 +54,6 @@ def main():
 
 
 def handle_events():
-    # time_down = time.time()
     global time_down
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
