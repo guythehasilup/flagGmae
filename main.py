@@ -1,3 +1,5 @@
+import time
+
 import game_field
 import pygame
 import screen
@@ -46,9 +48,9 @@ def main():
 
 
 def handle_events():
+    # time_down = time.time()
+    global time_down
     for event in pygame.event.get():
-        time_down = 0.0
-        time_elapsed = 0.0
         if event.type == pygame.QUIT:
             state["is_window_open"] = False
         elif event.type == pygame.KEYDOWN:
@@ -65,60 +67,84 @@ def handle_events():
                 pygame.display.update()
                 pygame.time.delay(1000)
             elif event.key == pygame.K_1:
-                time_down = pygame.time.get_ticks()
-                print(time_down)
+                time_down = time.time()
             elif event.key == pygame.K_2:
-                time_down = pygame.time.get_ticks()
-                print(time_down)
+                time_down = time.time()
             elif event.key == pygame.K_3:
-                time_down = pygame.time.get_ticks()
-                print(time_down)
+                time_down = time.time()
             elif event.key == pygame.K_4:
-                time_down = pygame.time.get_ticks()
-                print(time_down)
+                time_down = time.time()
             elif event.key == pygame.K_5:
-                time_down = pygame.time.get_ticks()
-                print(time_down)
+                time_down = time.time()
             elif event.key == pygame.K_6:
-                time_down = pygame.time.get_ticks()
-                print(time_down)
+                time_down = time.time()
             elif event.key == pygame.K_7:
-                time_down = pygame.time.get_ticks()
-                print(time_down)
+                time_down = time.time()
             elif event.key == pygame.K_8:
-                time_down = pygame.time.get_ticks()
-                print(time_down)
+                time_down = time.time()
             elif event.key == pygame.K_9:
-                time_down = pygame.time.get_ticks()
-                print(time_down)
+                time_down = time.time()
+
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_1:
-                time_elapsed = (pygame.time.get_ticks() - time_down) / 1000.0
-                print(time_elapsed)
+                time_elapsed = time.time() - time_down
+                if time_elapsed <= 1:
+                    print("load")
+                else:
+                    print("save")
+
             elif event.key == pygame.K_2:
-                time_elapsed = (pygame.time.get_ticks() - time_down) / 1000.0
-                print(time_elapsed)
+                time_elapsed = time.time() - time_down
+                if time_elapsed <= 1:
+                    print("load")
+                else:
+                    print("save")
             elif event.key == pygame.K_3:
-                time_elapsed = (pygame.time.get_ticks() - time_down) / 1000.0
-                print(time_elapsed)
+                time_elapsed = time.time() - time_down
+                if time_elapsed <= 1:
+                    print("load")
+                else:
+                    print("save")
+
             elif event.key == pygame.K_4:
-                time_elapsed = (pygame.time.get_ticks() - time_down) / 1000.0
-                print(time_elapsed)
+                time_elapsed = time.time() - time_down
+                if time_elapsed <= 1:
+                    print("load")
+                else:
+                    print("save")
             elif event.key == pygame.K_5:
-                time_elapsed = (pygame.time.get_ticks() - time_down) / 1000.0
-                print(time_elapsed)
+                time_elapsed = time.time() - time_down
+                if time_elapsed <= 1:
+                    print("load")
+                else:
+                    print("save")
+
             elif event.key == pygame.K_6:
-                time_elapsed = (pygame.time.get_ticks() - time_down) / 1000.0
-                print(time_elapsed)
+                time_elapsed = time.time() - time_down
+                if time_elapsed <= 1:
+                    print("load")
+                else:
+                    print("save")
+
             elif event.key == pygame.K_7:
-                time_elapsed = (pygame.time.get_ticks() - time_down) / 1000.0
-                print(time_elapsed)
+                time_elapsed = time.time() - time_down
+                if time_elapsed <= 1:
+                    print("load")
+                else:
+                    print("save")
+
             elif event.key == pygame.K_8:
-                time_elapsed = (pygame.time.get_ticks() - time_down) / 1000.0
-                print(time_elapsed)
+                time_elapsed = time.time() - time_down
+                if time_elapsed <= 1:
+                    print("load")
+                else:
+                    print("save")
             elif event.key == pygame.K_9:
-                time_elapsed = (pygame.time.get_ticks() - time_down) / 1000.0
-                print(time_elapsed)
+                time_elapsed = time.time() - time_down
+                if time_elapsed <= 1:
+                    print("load")
+                else:
+                    print("save")
 
 
 if __name__ == "__main__":

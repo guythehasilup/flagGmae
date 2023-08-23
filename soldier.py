@@ -130,7 +130,7 @@ def get_soldier_pos(game_field_metrics):
 
 
 def loss(state, feet_location):
-    # displays the loss when i step on a mine
+    # displays the loss when I step on a mine
     state["is_lost"] = True
     state["soldier_feet_pos"] = feet_location
     consts.SOLDIER_IMAGE = consts.INJURED_SOLDIER_IMAGE
