@@ -64,12 +64,8 @@ def initiate_mines_pos():
         insert_mine_to_matrix(mine_row, mine_start_col)
 
 
-def get_flag_pos():
-    for row in range(consts.MATRIX_HEIGHT):
-        for col in range(consts.MATRIX_WIDTH):
-            if game_field_metrics[row][col] == consts.FLAG_PLACEMENT:
-                return row, col
-
-
 def restore_mines():
-    pass
+    for mine in mines:
+        for parts_of_mine in mine:
+            if game_field_metrics[parts_of_mine[0]][parts_of_mine[1]] == consts.EMPTY_PLACEMENT:
+                game_field_metrics[parts_of_mine[0]][parts_of_mine[1]] = consts.MINE_PLACEMENT

@@ -20,6 +20,7 @@ def soldier_move_left(game_field_metrics, state):
     # add soldier from the left
     for row in range(consts.SOLDIER_HEIGHT):
         game_field_metrics[soldier_placement[1] + row][soldier_placement[0] - 1] = consts.SOLDIER_PLACEMENT
+    game_field.restore_mines()
 
 
 def soldier_move_right(game_field_metrics, state):
@@ -39,6 +40,7 @@ def soldier_move_right(game_field_metrics, state):
                         game_field_metrics[row + i][col] = consts.EMPTY_PLACEMENT
                         game_field_metrics[row + i][col + 1] = consts.SOLDIER_PLACEMENT
                         game_field_metrics[row + i][col + 2] = consts.SOLDIER_PLACEMENT
+                    game_field.restore_mines()
                     return
 
 
@@ -60,6 +62,7 @@ def soldier_move_down(game_field_metrics, state):
         soldier_placement[0]] = consts.SOLDIER_PLACEMENT
     game_field_metrics[soldier_placement[1] + consts.SOLDIER_HEIGHT][
         soldier_placement[0] + 1] = consts.SOLDIER_PLACEMENT
+    game_field.restore_mines()
 
 
 def soldier_move_up(game_field_metrics, state):
@@ -82,6 +85,7 @@ def soldier_move_up(game_field_metrics, state):
         soldier_placement[0]] = consts.SOLDIER_PLACEMENT
     game_field_metrics[soldier_placement[1] - 1][
         soldier_placement[0] + 1] = consts.SOLDIER_PLACEMENT
+    game_field.restore_mines()
 
 
 def soldier_feet(game_field_metrics):

@@ -18,8 +18,8 @@ def draw_game():
 
 def set_bush_placement():
     for bush in range(20):
-        x_place = random.randint(0, consts.MATRIX_WIDTH)
-        y_place = random.randint(0, consts.MATRIX_HEIGHT)
+        x_place = random.randint(0, consts.MATRIX_WIDTH-2)
+        y_place = random.randint(0, consts.MATRIX_HEIGHT-2)
         consts.BUSH_PLACEMENT.append((x_place, y_place))
 
 
@@ -66,10 +66,9 @@ def draw_night_soldier(x, y):
 
 
 def draw_flag():
-    row, col = game_field.get_flag_pos()
     sized_flag = pygame.transform.scale(consts.FLAG_IMAGE, (
         consts.SQUARE_EDGE * consts.FLAG_WIDTH, consts.SQUARE_EDGE * consts.FLAG_HEIGHT))
-    screen_1.blit(sized_flag, (col * consts.SQUARE_EDGE, row * consts.SQUARE_EDGE))
+    screen_1.blit(sized_flag, (consts.FLAG_X_POS * consts.SQUARE_EDGE, consts.FLAG_Y_POS * consts.SQUARE_EDGE))
 
 
 def draw_mine(mine):
