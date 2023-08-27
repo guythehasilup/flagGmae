@@ -1,12 +1,13 @@
+import ast
 import os
 import time
-import ast
 
+import pygame
+
+import consts
 import database
 import game_field
-import pygame
 import screen
-import consts
 import soldier
 
 state = {
@@ -31,13 +32,9 @@ def main():
     while state["is_window_open"]:
         if state["state"] is consts.RUNNING_STATE:
             handle_events()
-            screen.draw_game()
+            screen.draw_game(state)
             if state["is_lost"] or state["is_won"]:
                 state["state"] = consts.ENG_GAME_STATE
-
-            # do something or crash
-            # pygame.display.update()
-            # clock.tick(60)
         else:
             if state["is_lost"]:
                 screen.draw_lose_screen()

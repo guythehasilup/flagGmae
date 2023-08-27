@@ -1,6 +1,8 @@
 import consts
 import random
 
+import guard
+
 game_field_metrics = []
 mines = []
 flag = []
@@ -16,6 +18,7 @@ def initiate_empty_game_field():
 
 def initiate_game_field():
     initiate_soldier_pos()
+    initiate_guard_pos()
     initiate_flag_pos()
     initiate_mines_pos()
 
@@ -30,6 +33,15 @@ def initiate_soldier_pos():
     for row in range(consts.SOLDIER_HEIGHT):
         for col in range(consts.SOLDIER_WIDTH):
             game_field_metrics[row][col] = consts.SOLDIER_PLACEMENT
+
+
+def initiate_guard_pos():
+    for row in range(consts.GUARD_HEIGHT):
+        curr_row = []
+        for col in range(consts.GUARD_WIDTH):
+            curr_row.append([row + consts.GUARDING_ROW, col])
+            game_field_metrics[row + consts.GUARDING_ROW][col] = consts.GUARD_PLACEMENT
+        guard.guard_index.append(curr_row)
 
 
 def set_soldier_pos(soldier_pos):
@@ -65,7 +77,7 @@ def insert_mine_to_matrix(mine_row, mine_start_col):
 
 
 def initiate_mines_pos():
-    for i in range(20):
+    for i in range(consts.MINE_NUMBER):
         mine_row = random.randint(0, consts.MATRIX_HEIGHT - 1)
         mine_start_col = random.randint(0, consts.MATRIX_WIDTH)
         while not check_placement_of_mine(mine_row, mine_start_col):

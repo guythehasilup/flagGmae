@@ -1,5 +1,6 @@
 import consts
 import game_field
+import guard
 import main
 
 
@@ -8,7 +9,8 @@ def soldier_move_left(game_field_metrics, state):
     soldier_placement = get_soldier_pos(game_field_metrics)
     if soldier_placement[0] - 1 < 0:
         return
-    elif game_field_metrics[feet_location[0][0]][feet_location[0][1] - 1] == consts.MINE_PLACEMENT:
+    elif (game_field_metrics[feet_location[0][0]][feet_location[0][1] - 1] == consts.MINE_PLACEMENT or
+          is_touching_guard(soldier_placement)):
         loss(state, feet_location)
         return
     # move soldier left
@@ -35,7 +37,8 @@ def soldier_move_right(game_field_metrics, state):
                     [body_location[5][0], body_location[5][1]] == game_field.flag[1][0]):
                 win_con = 1
             if game_field_metrics[row][col] == consts.SOLDIER_PLACEMENT:
-                if (game_field_metrics[feet_location[1][0]][feet_location[1][1] + 1]) == consts.MINE_PLACEMENT:
+                if ((game_field_metrics[feet_location[1][0]][feet_location[1][1] + 1]) == consts.MINE_PLACEMENT or
+                        is_touching_guard(soldier_placement)):
                     loss(state, feet_location)
                     return
                 else:
@@ -59,7 +62,8 @@ def soldier_move_down(game_field_metrics, state):
     if feet_location[0][0] + 1 == consts.MATRIX_HEIGHT:
         return
     elif (game_field_metrics[feet_location[0][0] + 1][feet_location[0][1]] == consts.MINE_PLACEMENT or
-          game_field_metrics[feet_location[1][0] + 1][feet_location[1][1]] == consts.MINE_PLACEMENT):
+          game_field_metrics[feet_location[1][0] + 1][feet_location[1][1]] == consts.MINE_PLACEMENT or
+          is_touching_guard(soldier_placement)):
         loss(state, feet_location)
         return
     elif down_win(body_location):
@@ -82,7 +86,8 @@ def soldier_move_up(game_field_metrics, state):
     if soldier_placement[1] - 1 < 0:
         return
     elif (game_field_metrics[feet_location[0][0] - 1][feet_location[0][1]] == consts.MINE_PLACEMENT or
-          game_field_metrics[feet_location[1][0] - 1][feet_location[1][1]] == consts.MINE_PLACEMENT):
+          game_field_metrics[feet_location[1][0] - 1][feet_location[1][1]] == consts.MINE_PLACEMENT or
+          is_touching_guard(soldier_placement)):
         loss(state, feet_location)
         return
     # move soldier up
@@ -153,3 +158,12 @@ def right_win(body_location):
                 return True
     # ([body_location[3][0], body_location[3][1] + 1] == game_field.flag[0][0] or
     #  [body_location[5][0], body_location[5][1] + 1] == game_field.flag[1][0]):
+
+
+def is_touching_guard(soldier_pos):
+    for row in range(consts.SOLDIER_HEIGHT):
+        for col in range(consts.SOLDIER_WIDTH):
+            if ([row + soldier_pos[1], col + soldier_pos[0]] in guard.guard_index[0] or
+                    [row + soldier_pos[1], col + soldier_pos[0]] in guard.guard_index[1]):
+                return True
+    return False
