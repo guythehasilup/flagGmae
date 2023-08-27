@@ -2,6 +2,7 @@ import consts
 import random
 
 import guard
+import teleport
 
 game_field_metrics = []
 mines = []
@@ -21,6 +22,7 @@ def initiate_game_field():
     initiate_guard_pos()
     initiate_flag_pos()
     initiate_mines_pos()
+    teleport.initiate_teleport_pos()
 
 
 def print_board():
@@ -48,6 +50,12 @@ def set_soldier_pos(soldier_pos):
     for row in range(consts.SOLDIER_HEIGHT):
         for col in range(consts.SOLDIER_WIDTH):
             game_field_metrics[row + soldier_pos[1]][col + soldier_pos[0]] = consts.SOLDIER_PLACEMENT
+
+
+def clear_soldier_pos(soldier_pos):
+    for row in range(consts.SOLDIER_HEIGHT):
+        for col in range(consts.SOLDIER_WIDTH):
+            game_field_metrics[row + soldier_pos[1]][col + soldier_pos[0]] = consts.EMPTY_PLACEMENT
 
 
 def initiate_flag_pos():

@@ -6,6 +6,8 @@ import random
 import guard
 from time import time
 
+import teleport
+
 screen_1 = pygame.display.set_mode((consts.WINDOW_WIDTH, consts.WINDOW_HEIGHT))
 guard.start_time = time()
 
@@ -21,6 +23,8 @@ def draw_game(state):
     draw_soldier(soldier_pos[0] * consts.SQUARE_EDGE, soldier_pos[1] * consts.SQUARE_EDGE)
     draw_flag()
     draw_bushes()
+    for single_teleport in teleport.teleports:
+        draw_teleport(single_teleport)
     pygame.display.flip()
 
 
@@ -88,6 +92,13 @@ def draw_lose_screen():
     font = pygame.font.SysFont(consts.FONT_NAME, consts.MESSAGE_FONT)
     text_img = font.render(consts.LOSE_MESSAGE, True, consts.MESSAGE_COLOR)
     screen_1.blit(text_img, consts.MESSAGE_PLACE)
+
+
+def draw_teleport(single_teleport):
+    sized_teleport = pygame.transform.scale(consts.TELEPORT_IMAGE, (
+        consts.SQUARE_EDGE * consts.TELEPORT_WIDTH, consts.SQUARE_EDGE * consts.TELEPORT_HEIGHT))
+    screen_1.blit(sized_teleport,
+                  (single_teleport[0][1] * consts.SQUARE_EDGE, single_teleport[0][0] * consts.SQUARE_EDGE))
 
 
 def draw_win_screen():
