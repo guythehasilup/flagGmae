@@ -161,8 +161,6 @@ def right_win(body_location):
         for j in range(consts.FLAG_WIDTH):
             if [body_location[2 + i][0] + 1, body_location[3 + i][1]] == flag[0][j]:
                 return True
-    # ([body_location[3][0], body_location[3][1] + 1] == game_field.flag[0][0] or
-    #  [body_location[5][0], body_location[5][1] + 1] == game_field.flag[1][0]):
 
 
 def is_touching_guard(soldier_pos):
