@@ -16,6 +16,11 @@ def initiate_teleport_pos():
         insert_teleport_to_matrix(teleport_row, teleport_start_col)
 
 
+def reset_teleports_to_matrix(tp_list):
+    for tp in tp_list:
+        insert_teleport_to_matrix(tp[0][0], tp[0][1])
+
+
 def insert_teleport_to_matrix(teleport_row, teleport_start_col):
     teleport_placement = []
     for cols in range(teleport_start_col, teleport_start_col + consts.TELEPORT_WIDTH):
