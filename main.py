@@ -39,8 +39,6 @@ def main():
         else:
             if state["is_lost"]:
                 screen.draw_lose_screen()
-                screen.draw_explosion(state["soldier_feet_pos"][0][1] * consts.SQUARE_EDGE,
-                                      state["soldier_feet_pos"][0][0] * consts.SQUARE_EDGE)
                 pygame.display.update()
                 pygame.time.delay(3000)
                 state["is_window_open"] = False

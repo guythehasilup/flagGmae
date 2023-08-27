@@ -89,9 +89,9 @@ def draw_mine(mine):
 
 
 def draw_lose_screen():
-    font = pygame.font.SysFont(consts.FONT_NAME, consts.MESSAGE_FONT)
-    text_img = font.render(consts.LOSE_MESSAGE, True, consts.MESSAGE_COLOR)
-    screen_1.blit(text_img, consts.MESSAGE_PLACE)
+    sized_screen = pygame.transform.scale(consts.LOSE_IMAGE, (
+        consts.SQUARE_EDGE * consts.MATRIX_WIDTH, consts.SQUARE_EDGE * consts.MATRIX_HEIGHT))
+    screen_1.blit(sized_screen, (1, 1))
 
 
 def draw_teleport(single_teleport):
@@ -102,9 +102,9 @@ def draw_teleport(single_teleport):
 
 
 def draw_win_screen():
-    font = pygame.font.SysFont(consts.FONT_NAME, consts.MESSAGE_FONT)
-    text_img = font.render(consts.WIN_MESSAGE, True, consts.MESSAGE_COLOR)
-    screen_1.blit(text_img, consts.MESSAGE_PLACE)
+    sized_screen = pygame.transform.scale(consts.VICTORY_IMAGE, (
+        consts.SQUARE_EDGE * consts.MATRIX_WIDTH, consts.SQUARE_EDGE * consts.MATRIX_HEIGHT))
+    screen_1.blit(sized_screen, (1, 1))
 
 
 def draw_explosion(x, y):
