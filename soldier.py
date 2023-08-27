@@ -10,8 +10,7 @@ def soldier_move_left(game_field_metrics, state):
     soldier_placement = get_soldier_pos(game_field_metrics)
     if soldier_placement[0] - 1 < 0:
         return
-    elif (game_field_metrics[feet_location[0][0]][feet_location[0][1] - 1] == consts.MINE_PLACEMENT or
-          is_touching_guard(soldier_placement)):
+    elif game_field_metrics[feet_location[0][0]][feet_location[0][1] - 1] == consts.MINE_PLACEMENT:
         loss(state, feet_location)
         return
     # move soldier left
@@ -39,8 +38,7 @@ def soldier_move_right(game_field_metrics, state):
                     [body_location[5][0], body_location[5][1]] == game_field.flag[1][0]):
                 win_con = 1
             if game_field_metrics[row][col] == consts.SOLDIER_PLACEMENT:
-                if ((game_field_metrics[feet_location[1][0]][feet_location[1][1] + 1]) == consts.MINE_PLACEMENT or
-                        is_touching_guard(soldier_placement)):
+                if (game_field_metrics[feet_location[1][0]][feet_location[1][1] + 1]) == consts.MINE_PLACEMENT:
                     loss(state, feet_location)
                     return
                 else:
@@ -65,8 +63,7 @@ def soldier_move_down(game_field_metrics, state):
     if feet_location[0][0] + 1 == consts.MATRIX_HEIGHT:
         return
     elif (game_field_metrics[feet_location[0][0] + 1][feet_location[0][1]] == consts.MINE_PLACEMENT or
-          game_field_metrics[feet_location[1][0] + 1][feet_location[1][1]] == consts.MINE_PLACEMENT or
-          is_touching_guard(soldier_placement)):
+          game_field_metrics[feet_location[1][0] + 1][feet_location[1][1]] == consts.MINE_PLACEMENT):
         loss(state, feet_location)
         return
     elif down_win(body_location):
@@ -85,26 +82,29 @@ def soldier_move_down(game_field_metrics, state):
 
 
 def soldier_move_up(game_field_metrics, state):
+    mines = game_field.mines
     feet_location = soldier_feet(game_field_metrics)
     soldier_placement = get_soldier_pos(game_field_metrics)
     if soldier_placement[1] - 1 < 0:
         return
-    elif (game_field_metrics[feet_location[0][0] - 1][feet_location[0][1]] == consts.MINE_PLACEMENT or
-          game_field_metrics[feet_location[1][0] - 1][feet_location[1][1]] == consts.MINE_PLACEMENT or
-          is_touching_guard(soldier_placement)):
-        loss(state, feet_location)
-        return
-    # move soldier up
-    # remove lower body
-    game_field_metrics[soldier_placement[1] + consts.SOLDIER_BODY][soldier_placement[0]] = consts.EMPTY_PLACEMENT
-    game_field_metrics[soldier_placement[1] + consts.SOLDIER_BODY][soldier_placement[0] + 1] = consts.EMPTY_PLACEMENT
-    # move up
-    game_field_metrics[soldier_placement[1] - 1][
-        soldier_placement[0]] = consts.SOLDIER_PLACEMENT
-    game_field_metrics[soldier_placement[1] - 1][
-        soldier_placement[0] + 1] = consts.SOLDIER_PLACEMENT
-    teleport.check_if_teleport_activates(soldier_feet(game_field.game_field_metrics))
-    game_field.restore_mines()
+    else:
+        # move soldier up
+        # remove lower body
+        game_field_metrics[soldier_placement[1] + consts.SOLDIER_BODY][soldier_placement[0]] = consts.EMPTY_PLACEMENT
+        game_field_metrics[soldier_placement[1] + consts.SOLDIER_BODY][
+            soldier_placement[0] + 1] = consts.EMPTY_PLACEMENT
+        # move up
+        game_field_metrics[soldier_placement[1] - 1][
+            soldier_placement[0]] = consts.SOLDIER_PLACEMENT
+        game_field_metrics[soldier_placement[1] - 1][soldier_placement[0] + 1] = consts.SOLDIER_PLACEMENT
+        for mine in mines:
+            for mine_cell in mine:
+                if (feet_location[0][0] - 1 == mine_cell[0] and feet_location[0][1] == mine_cell[1]
+                        or feet_location[1][0] - 1 == mine_cell[0] and feet_location[1][1] == mine_cell[1]):
+                    loss(state, feet_location)
+                    return
+        game_field.restore_mines()
+        teleport.check_if_teleport_activates(soldier_feet(game_field.game_field_metrics))
 
 
 def soldier_feet(game_field_metrics):
