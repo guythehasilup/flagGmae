@@ -1,4 +1,4 @@
-import ast
+
 import os
 import time
 
@@ -147,14 +147,15 @@ def handle_events():
 
 
 def load_game(key):
-    game_field.clear_board()
-    game_field.initiate_guard_pos()
-    game_field.set_soldier_pos(ast.literal_eval(database.read_db(key, consts.VAR_SOLDIER)))
-    game_field.mines = []
-    game_field.set_mines_pos(ast.literal_eval(database.read_db(key, consts.VAR_MINE)))
-    consts.BUSH_PLACEMENT = ast.literal_eval(database.read_db(key, consts.VAR_BUSH))
-    teleport.teleports = []
-    teleport.reset_teleports_to_matrix(ast.literal_eval(database.read_db(key, consts.VAR_TELEPORT)))
+    if eval(database.read_db(key, consts.VAR_SOLDIER)):
+        game_field.clear_board()
+        game_field.initiate_guard_pos()
+        game_field.set_soldier_pos(eval(database.read_db(key, consts.VAR_SOLDIER)))
+        game_field.mines = []
+        game_field.set_mines_pos(eval(database.read_db(key, consts.VAR_MINE)))
+        consts.BUSH_PLACEMENT = eval(database.read_db(key, consts.VAR_BUSH))
+        teleport.teleports = []
+        teleport.reset_teleports_to_matrix(eval(database.read_db(key, consts.VAR_TELEPORT)))
 
 
 if __name__ == "__main__":
