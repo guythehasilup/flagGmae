@@ -32,7 +32,7 @@ def insert_teleport_to_matrix(teleport_row, teleport_start_col):
 def check_placement_of_teleport(teleport_row, teleport_start_col):
     if teleport_start_col + consts.TELEPORT_WIDTH > consts.MATRIX_WIDTH:
         return False
-    if teleport_row in [11, 12, 13, 14]:
+    if teleport_row in [row for row in range(consts.GUARDING_ROW - consts.GUARD_HEIGHT, consts.GUARDING_ROW + consts.GUARD_HEIGHT + 1)]:
         return False
     for cols in range(teleport_start_col, teleport_start_col + consts.TELEPORT_WIDTH):
         if game_field.game_field_metrics[teleport_row][cols] != consts.EMPTY_PLACEMENT:

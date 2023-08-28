@@ -22,7 +22,8 @@ def set_guard_pos(x_pos, y_pos, state):
                 consts.GUARD_MOVEMENT_INDEX = 1
             else:
                 if soldier.is_touching_guard(soldier.get_soldier_pos(game_field.game_field_metrics)):
-                    soldier.loss(state, soldier.soldier_feet(game_field.game_field_metrics))
+                    soldier.loss(state)
+                    state["is_lost_by_guard"] = True
                 guard_index[row][col] = [row + y_pos, col + x_pos]
                 game_field.game_field_metrics[row + y_pos][col + x_pos] = consts.GUARD_PLACEMENT
 

@@ -11,7 +11,7 @@ def soldier_move_left(game_field_metrics, state):
     if soldier_placement[0] - 1 < 0:
         return
     elif game_field_metrics[feet_location[0][0]][feet_location[0][1] - 1] == consts.MINE_PLACEMENT:
-        loss(state, feet_location)
+        loss(state)
         return
     # move soldier left
     # remove the rightest side of soldier
@@ -39,7 +39,7 @@ def soldier_move_right(game_field_metrics, state):
                 win_con = 1
             if game_field_metrics[row][col] == consts.SOLDIER_PLACEMENT:
                 if (game_field_metrics[feet_location[1][0]][feet_location[1][1] + 1]) == consts.MINE_PLACEMENT:
-                    loss(state, feet_location)
+                    loss(state)
                     return
                 else:
                     # moves soldier right
@@ -64,7 +64,7 @@ def soldier_move_down(game_field_metrics, state):
         return
     elif (game_field_metrics[feet_location[0][0] + 1][feet_location[0][1]] == consts.MINE_PLACEMENT or
           game_field_metrics[feet_location[1][0] + 1][feet_location[1][1]] == consts.MINE_PLACEMENT):
-        loss(state, feet_location)
+        loss(state)
         return
     elif down_win(body_location):
         win_con = 1
@@ -101,7 +101,7 @@ def soldier_move_up(game_field_metrics, state):
             for mine_cell in mine:
                 if (feet_location[0][0] - 1 == mine_cell[0] and feet_location[0][1] == mine_cell[1]
                         or feet_location[1][0] - 1 == mine_cell[0] and feet_location[1][1] == mine_cell[1]):
-                    loss(state, feet_location)
+                    loss(state)
                     return
         game_field.restore_mines()
         teleport.check_if_teleport_activates(soldier_feet(game_field.game_field_metrics))
@@ -139,11 +139,9 @@ def get_soldier_pos(game_field_metrics):
                 return col, row
 
 
-def loss(state, feet_location):
+def loss(state):
     # displays the loss when I step on a mine
     state["is_lost"] = True
-    state["soldier_feet_pos"] = feet_location
-    consts.SOLDIER_IMAGE = consts.INJURED_SOLDIER_IMAGE
 
 
 def down_win(body_location):

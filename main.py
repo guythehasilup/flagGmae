@@ -7,6 +7,7 @@ import pygame
 import consts
 import database
 import game_field
+import guard
 import screen
 import soldier
 import teleport
@@ -14,9 +15,9 @@ import teleport
 state = {
     "is_window_open": True,
     "is_lost": False,
+    "is_lost_by_guard": False,
     "is_won": False,
-    "state": consts.RUNNING_STATE,
-    "soldier_feet_pos": []
+    "state": consts.RUNNING_STATE
 }
 
 
@@ -38,7 +39,11 @@ def main():
                 state["state"] = consts.ENG_GAME_STATE
         else:
             if state["is_lost"]:
-                screen.draw_lose_screen()
+                if state["is_lost_by_guard"]:
+                    guard_pos = guard.get_guard_pos()
+                    screen.draw_explosion(guard_pos[0] * consts.SQUARE_EDGE, (guard_pos[1] - consts.EXPLOSION_HEIGHT + consts.GUARD_HEIGHT) * consts.SQUARE_EDGE)
+                else:
+                    screen.draw_lose_screen()
                 pygame.display.update()
                 pygame.time.delay(3000)
                 state["is_window_open"] = False

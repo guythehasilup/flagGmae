@@ -108,9 +108,15 @@ def draw_win_screen():
 
 
 def draw_explosion(x, y):
+    screen_1.fill(consts.BACKGROUND_COLOR)
     sized_exp = pygame.transform.scale(consts.EXPLOSION_IMAGE, (
         consts.SQUARE_EDGE * consts.EXPLOSION_WIDTH, consts.SQUARE_EDGE * consts.EXPLOSION_HEIGHT))
     screen_1.blit(sized_exp, (x, y))
+    draw_flag()
+    draw_bushes()
+    for single_teleport in teleport.teleports:
+        draw_teleport(single_teleport)
+    pygame.display.flip()
 
 
 def draw_guard(x, y):
