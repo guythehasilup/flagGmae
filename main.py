@@ -1,4 +1,3 @@
-
 import os
 import time
 
@@ -26,6 +25,8 @@ def main():
     if not file_exists:
         database.initialize_db()
     pygame.init()
+    consts.FONT = pygame.font.SysFont('chalkduster.ttf', 32)
+    consts.DRAWABLE_MESSAGE = consts.FONT.render(consts.WELCOME_MESSAGE, True, consts.WHITE)
     game_field.initiate_empty_game_field()
     game_field.initiate_game_field()
     screen.set_bush_placement()

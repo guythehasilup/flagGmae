@@ -14,6 +14,7 @@ guard.start_time = time()
 
 def draw_game(state):
     screen_1.fill(consts.BACKGROUND_COLOR)
+    draw_message(consts.DRAWABLE_MESSAGE, consts.MESSAGE_X_PIXEL, consts.MESSAGE_Y_PIXEL)
     soldier_pos = soldier.get_soldier_pos(game_field.game_field_metrics)
     guard_pos = guard.get_guard_pos()
     if time() - guard.start_time >= consts.GUARD_MOVEMENT_INTERVAL:
@@ -30,8 +31,8 @@ def draw_game(state):
 
 def set_bush_placement():
     for bush in range(20):
-        x_place = random.randint(0, consts.MATRIX_WIDTH - 2)
-        y_place = random.randint(0, consts.MATRIX_HEIGHT - 2)
+        x_place = random.randint(consts.SOLDIER_WIDTH, consts.MATRIX_WIDTH - 2)
+        y_place = random.randint(consts.SOLDIER_HEIGHT, consts.MATRIX_HEIGHT - 2)
         consts.BUSH_PLACEMENT.append((x_place, y_place))
 
 
@@ -125,3 +126,7 @@ def draw_guard(x, y):
     rotated_guard = pygame.transform.rotate(sized_guard, consts.GUARD_ROTATION_DEGREE)
     consts.GUARD_ROTATION_DEGREE += 1
     screen_1.blit(rotated_guard, (x, y))
+
+
+def draw_message(txt, x, y):
+    screen_1.blit(txt, (x, y))
